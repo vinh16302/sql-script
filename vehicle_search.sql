@@ -1,0 +1,60 @@
+USE gAMSCloud_DEMO_04
+GO
+
+IF DB_NAME() <> N'gAMSCloud_DEMO_04' SET NOEXEC ON
+GO
+
+SET QUOTED_IDENTIFIER, ANSI_NULLS ON
+GO
+
+--
+-- Create or alter procedure [dbo].[VEHICLE_Search]
+--
+GO
+PRINT (N'Create or alter procedure [dbo].[VEHICLE_Search]')
+GO
+CREATE OR ALTER PROCEDURE dbo.VEHICLE_Search @p_TOP INT = 500,
+@p_CAR_ID VARCHAR(20) = NULL,
+@p_TYPE NVARCHAR(200) = NULL,
+@p_NAME NVARCHAR(200) = NULL,
+@p_OG_COUNTRY NVARCHAR(200) = NULL,
+@p_BRAND NVARCHAR(200) = NULL,
+@p_MANAGING_UNIT NVARCHAR(200) = NULL,
+@p_FUEL NVARCHAR(200) = NULL,
+@p_CONSUMPTION DECIMAL(18,2) = NULL
+
+AS
+  BEGIN -- PAGING
+    IF (@p_TOP IS NULL OR @p_TOP = '' OR @p_TOP = 0) -- PAGING BEGIN
+      SELECT       
+      v.*,
+      cd.DEP_NAME
+      -- SELECT END
+      FROM VEHICLE v
+      LEFT JOIN CM_DEPARTMENT cd ON cd.DEP_ID = v.MANAGING_UNIT
+      WHERE 1 = 1 
+      AND (v.CAR_ID = @p_CAR_ID OR @p_CAR_ID IS NULL OR @p_CAR_ID = '')
+      AND (v.TYPE = @p_TYPE OR @p_TYPE IS NULL OR @p_TYPE = '')
+      AND (v.NAME = @p_NAME OR @p_NAME IS NULL OR @p_NAME = '')
+      AND (v.OG_COUNTRY = @p_OG_COUNTRY OR @p_OG_COUNTRY IS NULL OR @p_OG_COUNTRY = '')
+      AND (v.BRAND = @p_BRAND OR @p_BRAND IS NULL OR @p_BRAND = '')
+      AND (v.MANAGING_UNIT = @p_MANAGING_UNIT OR @p_MANAGING_UNIT IS NULL OR @p_MANAGING_UNIT = '')
+      -- PAGING END
+    ELSE
+      -- PAGING BEGIN 
+      SELECT TOP (@p_TOP) 
+      v.*,
+      cd.DEP_NAME
+      -- SELECT END
+      FROM VEHICLE v
+      LEFT JOIN CM_DEPARTMENT cd ON cd.DEP_ID = v.MANAGING_UNIT
+      WHERE 1 = 1 
+      AND (v.CAR_ID = @p_CAR_ID OR @p_CAR_ID IS NULL OR @p_CAR_ID = '')
+      AND (v.TYPE = @p_TYPE OR @p_TYPE IS NULL OR @p_TYPE = '')
+      AND (v.NAME = @p_NAME OR @p_NAME IS NULL OR @p_NAME = '')
+      AND (v.OG_COUNTRY = @p_OG_COUNTRY OR @p_OG_COUNTRY IS NULL OR @p_OG_COUNTRY = '')
+      AND (v.BRAND = @p_BRAND OR @p_BRAND IS NULL OR @p_BRAND = '')
+      AND (v.MANAGING_UNIT = @p_MANAGING_UNIT OR @p_MANAGING_UNIT IS NULL OR @p_MANAGING_UNIT = '')
+      -- PAGING END
+  END -- PAGING
+GO
