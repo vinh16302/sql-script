@@ -33,19 +33,18 @@ CREATE OR ALTER PROCEDURE dbo.ASSIGNMENT_Search @p_TOP INT = 500,
 AS
   BEGIN -- PAGING
     IF (@p_TOP IS NULL OR @p_TOP = '' OR @p_TOP = 0) -- PAGING BEGIN
-      SELECT a.DisplayedID,
-      a.CREATE_DATE,
+      SELECT 
+      a.*,
       v.NAME AS 'CAR_NAME',
-      a.CAR_ID,
       v.FUEL,
       cd.DEP_NAME,
+      cd.DEP_CODE,
       T.GO_FROM,
       T.GO_TO,
-      a.MISSION,
       T.GO_TIME,
       T.BACK_TIME,
-      e.NAME AS 'DRIVER_NAME',
-      IIF(a.AUTH_STATUS = '1',N'ау duy?t',IIF(a.AUTH_STATUS = '0',N'Ch? duy?t',NULL)) AS AUTH_STATUS
+      e.NAME AS 'DRIVER_NAME'
+      --IIF(a.AUTH_STATUS = '1',N'ау duy?t',IIF(a.AUTH_STATUS = '0',N'Ch? duy?t',NULL)) AS AUTH_STATUS
       -- SELECT END
       FROM ASSIGNMENT a
       LEFT JOIN VEHICLE v ON a.CAR_ID = v.CAR_ID
@@ -68,19 +67,18 @@ AS
       -- PAGING END
     ELSE
       -- PAGING BEGIN 
-      SELECT TOP (@p_TOP) a.DisplayedID,
-      a.CREATE_DATE,
+      SELECT TOP (@p_TOP)
+      a.*,
       v.NAME AS 'CAR_NAME',
-      a.CAR_ID,
       v.FUEL,
       cd.DEP_NAME,
+      cd.DEP_CODE,
       T.GO_FROM,
       T.GO_TO,
-      a.MISSION,
       T.GO_TIME,
       T.BACK_TIME,
-      e.NAME AS 'DRIVER_NAME',
-      IIF(a.AUTH_STATUS = '1',N'ау duy?t',IIF(a.AUTH_STATUS = '0',N'Ch? duy?t',NULL)) AS AUTH_STATUS
+      e.NAME AS 'DRIVER_NAME'
+      --IIF(a.AUTH_STATUS = '1',N'ау duy?t',IIF(a.AUTH_STATUS = '0',N'Ch? duy?t',NULL)) AS AUTH_STATUS
       -- SELECT END
       FROM ASSIGNMENT a
       LEFT JOIN VEHICLE v ON a.CAR_ID = v.CAR_ID
