@@ -1,0 +1,21 @@
+--
+-- Drop table [dbo].[ASSIGNMENT_FUEL]
+--
+PRINT (N'Drop table [dbo].[ASSIGNMENT_FUEL]')
+GO
+DROP TABLE dbo.ASSIGNMENT_FUEL
+GO
+
+--
+-- Create table [dbo].[ASSIGNMENT_FUEL]
+--
+PRINT (N'Create table [dbo].[ASSIGNMENT_FUEL]')
+GO
+CREATE TABLE dbo.ASSIGNMENT_FUEL (
+  AS_ID varchar(15) NOT NULL,
+  FUEL_NAME nvarchar(60) NOT NULL,
+  CONSUMPTION decimal(18, 2) NOT NULL,
+  PRIMARY KEY CLUSTERED (AS_ID, FUEL_NAME)
+)
+ON [PRIMARY]
+GO

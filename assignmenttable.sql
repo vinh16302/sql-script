@@ -1,7 +1,9 @@
-﻿USE gAMSCloud_DEMO_04
+--
+-- Drop table [dbo].[ASSIGNMENT]
+--
+PRINT (N'Drop table [dbo].[ASSIGNMENT]')
 GO
-
-IF DB_NAME() <> N'gAMSCloud_DEMO_04' SET NOEXEC ON
+DROP TABLE dbo.ASSIGNMENT
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -16,7 +18,7 @@ CREATE TABLE dbo.ASSIGNMENT (
   AS_ID int IDENTITY,
   LOCATION nvarchar(200) NULL,
   POSITION_ID varchar(15) NULL,
-  BROWSING_UNIT nvarchar(1) NULL,
+  BROWSING_UNIT nvarchar(10) NULL,
   CREATE_DATE datetime NULL,
   FROM_DATE datetime NULL,
   TO_DATE datetime NULL,
