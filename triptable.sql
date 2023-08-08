@@ -22,6 +22,8 @@ CREATE TABLE dbo.TRIP (
   TIME datetime NULL,
   LENGTH decimal(18, 2) NULL,
   LENGTH_UNIT nvarchar(20) NULL,
+  UNIT_ID nvarchar(20) NULL,
+  UNIT_DISTANCE_ID nvarchar(20) NULL,
   PRIMARY KEY CLUSTERED (AS_ID, TYPE)
 )
 ON [PRIMARY]
